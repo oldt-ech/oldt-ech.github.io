@@ -30,7 +30,7 @@
 		<div class="jumbotron">
 			<h2>Map Popularity</h2>
 			<div id="mapPopularityDescription">Loading (this may take up to one minute)...</div>		
-			<div style="width: 800px; margin: 0 auto 0 auto" ><canvas style="width: 500px" id="popularMapsChart" ></canvas></div>
+			<div><canvas id="popularMapsChart" ></canvas></div>
 		</div>
 
 		<div class="jumbotron">
@@ -44,6 +44,20 @@
 		<script src="../chart.js" type="text/javascript"></script>
 
 		<script type="text/javascript">
+		function randomColors(numElements) {
+			var values = ['a','b','c','d','e','f','0','1','2','3','4','5','6'];
+			var ret = [];
+			
+			for (i = 0; i < numElements; i++) {
+				ret[i] = '#';
+				for (j = 0; j < 6; j++) {
+					ret[i] += values[Math.floor(Math.random() * values.length)];
+				}
+			}
+			
+			return ret;
+		}
+		
 		function formatDate(date) {
 			return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
 		}
@@ -101,13 +115,10 @@
 				type: 'doughnut',
 				data: {
 					labels: labels,
+					respsonsive: true,
 					datasets: [{
-					  label: 'Total players ',
-					  backgroundColor: ['orange','green','blue','red','teal','purple','black','grey','pink'],
 					  data: connectedPlayers,
-					  borderCapStyle: 'round',
-					  fill: 'origin',
-					  borderWidth: 0
+					  backgroundColor: randomColors(labels.length)
 					}],
 				  }
 			};
