@@ -25,7 +25,7 @@
 			<div style="color: white" id="loading">Loading servers, please wait!</div>
 
 		
-		<script type="text/javascript">
+		<script type="text/javascript">	
 			$.ajax({
 			  url: 'https://api.247ffa.com/api/v1/servers',
 			  dataType: 'json',
@@ -34,13 +34,13 @@
 				$('#servers-header').html('<tr><th>Server</th><th>Players</th><th>Max players</th><th>Map</th></tr>');
 				$.each(data, function(key, val) {
 					if(val.session.hasOwnProperty('value')) {
-						$('#servers').append("<tr><td>" 
-							+ val.name + "</td><td>"
-							+ (val.session.value.currentPlayers - 1) 
-							+ "</td><td>" + (val.session.value.maxPlayers - 1)  
-							+ "</td><td>" + val.session.value.mapname 
-							+ "</td></tr>");
-						
+						$('#servers').append($("<tr>")
+							.append($("<td>", {text: val.name}))
+							.append($("<td>", {text: (val.session.value.currentPlayers - 1)}))
+							.append($("<td>", {text: (val.session.value.maxPlayers - 1)}))
+							.append($("<td>", {text: val.session.value.mapname}))
+							.append($("</tr>"))
+						);
 					}
 				});
 			  }
